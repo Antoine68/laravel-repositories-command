@@ -37,7 +37,7 @@ Now you can use Repository in your application like this  :
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', "Home@index");
+Route::get('/', "HomeController@index");
 
 ```
 
