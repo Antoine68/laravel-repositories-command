@@ -1,6 +1,6 @@
 {
     "name": "antoiner/laravel-repositories-command",
-    "description": "Command to generate repositories of all models for Laravel",
+    "description": "Command for Laravel to generate repositories of each model",
     "authors": [
         {
             "name": "Antoine RICHARD",
