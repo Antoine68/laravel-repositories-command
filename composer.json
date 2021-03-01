@@ -1,0 +1,27 @@
+{
+    "name": "antoiner/laravel-repositories-command",
+    "description": "Command to generate repositories of all models for Laravel",
+    "authors": [
+        {
+            "name": "Antoine RICHARD",
+            "email": "antoine.richard68@gmail.com"
+        }
+    ],
+    "require": {},
+    "minimum-stability": "dev",
+    "type": "library",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Antoiner\\LaravelRepositoriesCommand\\LaravelRepositoriesCommandProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Antoiner\\LaravelRepositoriesCommand\\": "src/"
+        },
+        "classmap": ["src/"]
+    }
+
+}

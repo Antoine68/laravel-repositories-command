@@ -1,0 +1,122 @@
+<?php
+
+
+namespace App\Repositories\Eloquent;
+
+
+use App\Repositories\EloquentRepositoryInterface;
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * Class ModelRepository
+ * @package App\Repositories\Eloquent
+ */
+abstract class ModelRepository implements EloquentRepositoryInterface
+{
+    /**
+     * @var Model
+     */
+    protected $model;
+
+    /**
+     * ModelRepository constructor.
+     * @param Model $model
+     */
+    public function __construct(Model $model)
+    {
+        $this->model = $model;
+    }
+
+    /**
+     * Overwrite this method to process the data array
+     * before create or update a Model instance.
+     *
+     * @param array $array
+     * @param int|null $id
+     * @return array
+     */
+    protected function processData(array $array, int $id = null)
+    {
+        return $array;
+    }
+
+    public function newInstance()
+    {
+        return $this->model->newInstance();
+    }
+
+    public function find(int $id, array $relationships = [])
+    {
+        return $this->model->with($relationships)->find($id);
+    }
+
+    public function findByAttribute($attribute, $value, array $relationships = [])
+    {
+        return $this->model->with($relationships)->where($attribute, '=', $value)->first();
+    }
+
+    public function findByAttributeOrFail($attribute, $value, array $relationships = [])
+    {
+        return $this->model->with($relationships)->where($attribute, '=', $value)->firstOrFail();
+    }
+
+    public function findAll(array $relationships = [])
+    {
+        return $this->model->with($relationships)->get();
+    }
+
+    public function all()
+    {
+        return $this->model->all();
+    }
+
+    public function exists(int $value, string $field = "id")
+    {
+        $model =  $this->findByAttribute($field, $value);
+        return isset($model);
+    }
+
+    public function create(array $array)
+    {
+        try {
+            $attributes = $this->processData($array);
+            return $this->model->create($attributes);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+
+    }
+
+    public function update(int $id, array $array)
+    {
+
+        $attributes = $this->processData($array, $id);
+        try {
+            $model = $this->findByAttributeOrFail("id", $id);
+            $model->update($attributes);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+
+        return $model;
+    }
+
+    public function delete(int $id)
+    {
+
+        try {
+            $model = $this->findByAttributeOrFail("id", $id);
+            return $model->delete();
+        } catch (\Exception $e) {
+            throw $e;
+        }
+
+    }
+
+    public function getPaginate(int $paginate, array $relationships = [])
+    {
+        return $this->model->with($relationships)->orderBy("created_at","desc")->paginate($paginate);
+    }
+
+
+}

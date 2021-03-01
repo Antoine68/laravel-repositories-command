@@ -1,0 +1,16 @@
+<?php
+
+namespace $CLASS_NAMESPACE$;
+
+use App\Repositories\Eloquent\ModelRepository;
+use $INTERFACE_NAMESPACE$;
+use $MODEL_NAMESPACE$;
+
+class $CLASS$ extends ModelRepository implements $INTERFACE$
+{
+    public function __construct($MODEL$ $model)
+    {
+        parent::__construct($model);
+    }
+
+}

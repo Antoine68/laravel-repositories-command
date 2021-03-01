@@ -1,0 +1,86 @@
+<?php
+
+namespace App\Repositories;
+
+use Illuminate\Database\Eloquent\Model;
+
+interface EloquentRepositoryInterface
+{
+
+    /**
+     * @return Model
+     */
+    public function newInstance();
+
+    /**
+     * @param array $array
+     * @return mixed
+     * @throws \Exception
+     */
+    public function create(array $array);
+
+    /**
+     * @param int $id
+     * @param array $array
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|Model|null
+     * @throws \Exception
+     */
+    public function update(int $id, array $array);
+
+    /**
+     * @param int $id
+     * @return bool|mixed|null
+     * @throws \Exception
+     */
+    public function delete(int $id);
+
+    /**
+     * @param int $id
+     * @param array $relationships
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|Model|null
+     */
+    public function find(int $id, array $relationships = []);
+
+    /**
+     * @param $attribute
+     * @param $value
+     * @param array $relationships
+     * @return \Illuminate\Database\Eloquent\Builder|Model|object|null
+     */
+    public function findByAttribute($attribute, $value, array $relationships = []);
+
+    /**
+     * @param $attribute
+     * @param $value
+     * @param array $relationships
+     * @return \Illuminate\Database\Eloquent\Builder|Model
+     */
+    public function findByAttributeOrFail($attribute, $value, array $relationships = []);
+
+    /**
+     * @param array $relationships
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function findAll(array $relationships = []);
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|Model[]
+     */
+    public function all();
+
+    /**
+     * @param int $value
+     * @param string $field
+     * @return bool
+     */
+    public function exists(int $value, string $field = "id");
+
+    /**
+     * @param int $paginate
+     * @param array $relationships
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function getPaginate(int $paginate, array $relationships = []);
+
+
+}
